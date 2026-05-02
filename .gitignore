@@ -1,0 +1,15 @@
+# Archivos de conflicto de Google Drive
+* (Conflict*)*
+* (Conflicto*)*
+* conflict*
+
+# Cachés y temporales
+__pycache__/
+*.log
+.tmp/
+.temp/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
