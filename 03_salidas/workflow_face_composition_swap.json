@@ -1,6 +1,6 @@
 {
-  "last_node_id": 30,
-  "last_link_id": 55,
+  "last_node_id": 19,
+  "last_link_id": 28,
   "nodes": [
     {
       "id": 1,
@@ -10,39 +10,40 @@
       "flags": {},
       "order": 0,
       "mode": 0,
+      "inputs": [],
       "outputs": [
-        {"name": "MODEL", "type": "MODEL", "links": [1, 20]},
-        {"name": "CLIP", "type": "CLIP", "links": [2, 3]},
-        {"name": "VAE", "type": "VAE", "links": [4, 50]}
+        {"name": "MODEL", "type": "MODEL", "links": [1]},
+        {"name": "CLIP",  "type": "CLIP",  "links": [2, 3, 27]},
+        {"name": "VAE",   "type": "VAE",   "links": [4, 28]}
       ],
       "properties": {},
-      "widgets_values": ["RealVisXL_V5.0.safetensors"]
+      "widgets_values": ["RealVisXL_V5.0_fp16.safetensors"]
     },
     {
       "id": 2,
       "type": "CLIPTextEncode",
-      "pos": [-400, 380],
-      "size": [425, 180],
+      "pos": [-400, 340],
+      "size": [500, 180],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [{"name": "clip", "type": "CLIP", "link": 2}],
       "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [5]}],
       "properties": {},
-      "widgets_values": ["photorealistic portrait of a person, holding a microscope, working in a modern science laboratory, hyper-detailed skin, 8k, cinematic lighting, professional photography, sharp focus, no text, no watermark"]
+      "widgets_values": ["photorealistic portrait of a person, working in a modern science laboratory, holding a microscope, hyper-detailed skin, 8k, cinematic lighting, professional photography, sharp focus, no text, no watermark"]
     },
     {
       "id": 3,
       "type": "CLIPTextEncode",
-      "pos": [-400, 580],
-      "size": [425, 180],
+      "pos": [-400, 550],
+      "size": [500, 160],
       "flags": {},
       "order": 2,
       "mode": 0,
       "inputs": [{"name": "clip", "type": "CLIP", "link": 3}],
       "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [6]}],
       "properties": {},
-      "widgets_values": ["cartoon, anime, painting, drawing, illustration, deformed, ugly, blurry, low quality, low resolution, watermark, text, bad anatomy, extra limbs, missing fingers, plastic skin, oversaturated"]
+      "widgets_values": ["cartoon, anime, painting, drawing, illustration, deformed, ugly, blurry, low quality, watermark, text, bad anatomy, extra limbs, missing fingers, plastic skin, oversaturated, two people, duplicate person"]
     },
     {
       "id": 4,
@@ -52,9 +53,10 @@
       "flags": {},
       "order": 3,
       "mode": 0,
+      "inputs": [],
       "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [7, 8]},
-        {"name": "MASK", "type": "MASK", "links": []}
+        {"name": "IMAGE", "type": "IMAGE", "links": [7]},
+        {"name": "MASK",  "type": "MASK",  "links": []}
       ],
       "properties": {},
       "widgets_values": ["base_scene.png", "image"]
@@ -67,9 +69,10 @@
       "flags": {},
       "order": 4,
       "mode": 0,
+      "inputs": [],
       "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [9]},
-        {"name": "MASK", "type": "MASK", "links": []}
+        {"name": "IMAGE", "type": "IMAGE", "links": [20]},
+        {"name": "MASK",  "type": "MASK",  "links": []}
       ],
       "properties": {},
       "widgets_values": ["reference_face.png", "image"]
@@ -83,9 +86,9 @@
       "order": 5,
       "mode": 0,
       "inputs": [{"name": "image", "type": "IMAGE", "link": 7}],
-      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [10]}],
+      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [8]}],
       "properties": {},
-      "widgets_values": ["depth_anything_vitl14.pth", 512, "disable"]
+      "widgets_values": ["depth_anything_vitl14.pth", 512]
     },
     {
       "id": 7,
@@ -95,9 +98,10 @@
       "flags": {},
       "order": 6,
       "mode": 0,
-      "outputs": [{"name": "CONTROL_NET", "type": "CONTROL_NET", "links": [11]}],
+      "inputs": [],
+      "outputs": [{"name": "CONTROL_NET", "type": "CONTROL_NET", "links": [9]}],
       "properties": {},
-      "widgets_values": ["xinsir-controlnet-union-sdxl-promax.safetensors"]
+      "widgets_values": ["diffusion_pytorch_model_promax.safetensors"]
     },
     {
       "id": 8,
@@ -107,216 +111,272 @@
       "flags": {},
       "order": 7,
       "mode": 0,
-      "inputs": [{"name": "control_net", "type": "CONTROL_NET", "link": 11}],
-      "outputs": [{"name": "CONTROL_NET", "type": "CONTROL_NET", "links": [12]}],
+      "inputs": [{"name": "control_net", "type": "CONTROL_NET", "link": 9}],
+      "outputs": [{"name": "CONTROL_NET", "type": "CONTROL_NET", "links": [10]}],
       "properties": {},
       "widgets_values": ["depth"]
     },
     {
       "id": 9,
       "type": "ControlNetApplyAdvanced",
-      "pos": [-200, 400],
+      "pos": [-200, 380],
       "size": [315, 166],
       "flags": {},
       "order": 8,
       "mode": 0,
       "inputs": [
-        {"name": "positive", "type": "CONDITIONING", "link": 5},
-        {"name": "negative", "type": "CONDITIONING", "link": 6},
-        {"name": "control_net", "type": "CONTROL_NET", "link": 12},
-        {"name": "image", "type": "IMAGE", "link": 10}
+        {"name": "positive",    "type": "CONDITIONING", "link": 5},
+        {"name": "negative",    "type": "CONDITIONING", "link": 6},
+        {"name": "control_net", "type": "CONTROL_NET",  "link": 10},
+        {"name": "image",       "type": "IMAGE",        "link": 8}
       ],
       "outputs": [
-        {"name": "positive", "type": "CONDITIONING", "links": [13]},
-        {"name": "negative", "type": "CONDITIONING", "links": [14]}
+        {"name": "positive", "type": "CONDITIONING", "links": [11, 13]},
+        {"name": "negative", "type": "CONDITIONING", "links": [12, 14]}
       ],
       "properties": {},
       "widgets_values": [0.65, 0.0, 0.85]
     },
     {
       "id": 10,
-      "type": "IPAdapterUnifiedLoaderFaceID",
-      "pos": [-900, 900],
-      "size": [315, 98],
+      "type": "IPAdapterInsightFaceLoader",
+      "pos": [-900, 950],
+      "size": [315, 58],
       "flags": {},
       "order": 9,
       "mode": 0,
-      "inputs": [{"name": "model", "type": "MODEL", "link": 1}],
-      "outputs": [
-        {"name": "model", "type": "MODEL", "links": [20]},
-        {"name": "ipadapter", "type": "IPADAPTER", "links": [21]}
-      ],
+      "inputs": [],
+      "outputs": [{"name": "INSIGHTFACE", "type": "INSIGHTFACE", "links": [21]}],
       "properties": {},
-      "widgets_values": ["FACEID PLUS V2", "ViT-H"]
+      "widgets_values": ["CUDA"]
     },
     {
       "id": 11,
-      "type": "IPAdapterAdvanced",
+      "type": "IPAdapterUnifiedLoaderFaceID",
       "pos": [-550, 900],
-      "size": [315, 230],
+      "size": [315, 126],
       "flags": {},
       "order": 10,
       "mode": 0,
-      "inputs": [
-        {"name": "model", "type": "MODEL", "link": 20},
-        {"name": "ipadapter", "type": "IPADAPTER", "link": 21},
-        {"name": "image", "type": "IMAGE", "link": 9}
+      "inputs": [{"name": "model", "type": "MODEL", "link": 1}],
+      "outputs": [
+        {"name": "MODEL",    "type": "MODEL",    "links": [18]},
+        {"name": "ipadapter","type": "IPADAPTER","links": [19]}
       ],
-      "outputs": [{"name": "MODEL", "type": "MODEL", "links": [22]}],
       "properties": {},
-      "widgets_values": [0.8, "linear", 0.0, 1.0, "concat", false, false]
+      "widgets_values": ["FACEID PLUS V2", 0.6, "CUDA"]
     },
     {
       "id": 12,
+      "type": "IPAdapterFaceID",
+      "pos": [-150, 900],
+      "size": [360, 340],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "model",          "type": "MODEL",      "link": 18},
+        {"name": "ipadapter",      "type": "IPADAPTER",  "link": 19},
+        {"name": "image",          "type": "IMAGE",      "link": 20},
+        {"name": "image_negative", "type": "IMAGE",      "link": null, "shape": 7},
+        {"name": "attn_mask",      "type": "MASK",       "link": null, "shape": 7},
+        {"name": "clip_vision",    "type": "CLIP_VISION","link": null, "shape": 7},
+        {"name": "insightface",    "type": "INSIGHTFACE","link": 21,   "shape": 7}
+      ],
+      "outputs": [
+        {"name": "MODEL",      "type": "MODEL", "links": [22, 23]},
+        {"name": "face_image", "type": "IMAGE", "links": []}
+      ],
+      "properties": {},
+      "widgets_values": [0.85, 1.0, "linear", "average", 0.0, 1.0, "V only"]
+    },
+    {
+      "id": 13,
       "type": "EmptyLatentImage",
       "pos": [-200, 700],
       "size": [315, 106],
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
+      "inputs": [],
       "outputs": [{"name": "LATENT", "type": "LATENT", "links": [15]}],
       "properties": {},
       "widgets_values": [1024, 1024, 1]
     },
     {
-      "id": 13,
+      "id": 14,
       "type": "KSampler",
-      "pos": [150, 400],
+      "pos": [250, 380],
       "size": [315, 262],
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
-        {"name": "model", "type": "MODEL", "link": 22},
-        {"name": "positive", "type": "CONDITIONING", "link": 13},
-        {"name": "negative", "type": "CONDITIONING", "link": 14},
-        {"name": "latent_image", "type": "LATENT", "link": 15}
+        {"name": "model",        "type": "MODEL",      "link": 22},
+        {"name": "positive",     "type": "CONDITIONING","link": 11},
+        {"name": "negative",     "type": "CONDITIONING","link": 12},
+        {"name": "latent_image", "type": "LATENT",     "link": 15}
       ],
       "outputs": [{"name": "LATENT", "type": "LATENT", "links": [16]}],
       "properties": {},
       "widgets_values": [42, "fixed", 28, 6.5, "dpmpp_2m_sde", "karras", 1.0]
     },
     {
-      "id": 14,
+      "id": 15,
       "type": "VAEDecode",
-      "pos": [500, 400],
+      "pos": [600, 380],
       "size": [210, 46],
       "flags": {},
-      "order": 13,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {"name": "samples", "type": "LATENT", "link": 16},
-        {"name": "vae", "type": "VAE", "link": 4}
+        {"name": "vae",     "type": "VAE",    "link": 4}
       ],
       "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [17]}],
       "properties": {}
     },
     {
-      "id": 15,
-      "type": "UltralyticsDetectorProvider",
-      "pos": [500, 550],
-      "size": [315, 58],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "outputs": [
-        {"name": "BBOX_DETECTOR", "type": "BBOX_DETECTOR", "links": [30]},
-        {"name": "SEGM_DETECTOR", "type": "SEGM_DETECTOR", "links": []}
-      ],
-      "properties": {},
-      "widgets_values": ["face_yolov8m.pt"]
-    },
-    {
       "id": 16,
-      "type": "SAMLoader",
-      "pos": [500, 650],
-      "size": [315, 82],
+      "type": "UltralyticsDetectorProvider",
+      "pos": [600, 520],
+      "size": [315, 58],
       "flags": {},
       "order": 15,
       "mode": 0,
-      "outputs": [{"name": "SAM_MODEL", "type": "SAM_MODEL", "links": [31]}],
+      "inputs": [],
+      "outputs": [
+        {"name": "BBOX_DETECTOR", "type": "BBOX_DETECTOR", "links": [24]},
+        {"name": "SEGM_DETECTOR", "type": "SEGM_DETECTOR", "links": []}
+      ],
+      "properties": {},
+      "widgets_values": ["bbox/face_yolov8m.pt"]
+    },
+    {
+      "id": 17,
+      "type": "SAMLoader",
+      "pos": [600, 620],
+      "size": [315, 82],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [{"name": "SAM_MODEL", "type": "SAM_MODEL", "links": [25]}],
       "properties": {},
       "widgets_values": ["sam_vit_b_01ec64.pth", "Prefer GPU"]
     },
     {
-      "id": 17,
-      "type": "FaceDetailer",
-      "pos": [850, 300],
-      "size": [350, 620],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {"name": "image", "type": "IMAGE", "link": 17},
-        {"name": "model", "type": "MODEL", "link": 22},
-        {"name": "clip", "type": "CLIP", "link": 2},
-        {"name": "vae", "type": "VAE", "link": 50},
-        {"name": "positive", "type": "CONDITIONING", "link": 13},
-        {"name": "negative", "type": "CONDITIONING", "link": 14},
-        {"name": "bbox_detector", "type": "BBOX_DETECTOR", "link": 30},
-        {"name": "sam_model_opt", "type": "SAM_MODEL", "link": 31}
-      ],
-      "outputs": [
-        {"name": "image", "type": "IMAGE", "links": [40]},
-        {"name": "cropped_refined", "type": "IMAGE", "links": []},
-        {"name": "cropped_enhanced_alpha", "type": "IMAGE", "links": []},
-        {"name": "mask", "type": "MASK", "links": []}
-      ],
-      "properties": {},
-      "widgets_values": [
-        512, true, 1024, 42, 20, 7.0, "dpmpp_2m_sde", "karras", 0.45,
-        5, true, false, 0.5, 10, 3.0, "center-1", 0.93, 0, 0.7, true, false
-      ]
-    },
-    {
       "id": 18,
-      "type": "SaveImage",
-      "pos": [1250, 300],
-      "size": [315, 270],
+      "type": "FaceDetailer",
+      "pos": [960, 200],
+      "size": [350, 640],
       "flags": {},
       "order": 17,
       "mode": 0,
-      "inputs": [{"name": "images", "type": "IMAGE", "link": 40}],
+      "inputs": [
+        {"name": "image",        "type": "IMAGE",        "link": 17},
+        {"name": "model",        "type": "MODEL",        "link": 23},
+        {"name": "clip",         "type": "CLIP",         "link": 27},
+        {"name": "vae",          "type": "VAE",          "link": 28},
+        {"name": "positive",     "type": "CONDITIONING", "link": 13},
+        {"name": "negative",     "type": "CONDITIONING", "link": 14},
+        {"name": "bbox_detector","type": "BBOX_DETECTOR","link": 24},
+        {"name": "sam_model_opt","type": "SAM_MODEL",    "link": 25}
+      ],
+      "outputs": [
+        {"name": "image",                  "type": "IMAGE", "links": [26]},
+        {"name": "cropped_refined",        "type": "IMAGE", "links": []},
+        {"name": "cropped_enhanced_alpha", "type": "IMAGE", "links": []},
+        {"name": "mask",                   "type": "MASK",  "links": []}
+      ],
+      "properties": {},
+      "widgets_values": [
+        512, true, 1024,
+        42, "fixed",
+        20, 7.0, "dpmpp_2m_sde", "karras",
+        0.45, 5, true, false,
+        0.5, 10, 3.0,
+        "center-1", 0, 0.93, 0, 0.7, "False",
+        10, "", 1,
+        false, 20, false, false
+      ]
+    },
+    {
+      "id": 19,
+      "type": "SaveImage",
+      "pos": [1360, 200],
+      "size": [315, 270],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 26}],
       "properties": {},
       "widgets_values": ["ComfyUI_swap_output"]
     }
   ],
   "links": [
-    [1, 1, 0, 10, 0, "MODEL"],
-    [2, 1, 1, 2, 0, "CLIP"],
-    [3, 1, 1, 3, 0, "CLIP"],
-    [4, 1, 2, 14, 1, "VAE"],
-    [5, 2, 0, 9, 0, "CONDITIONING"],
-    [6, 3, 0, 9, 1, "CONDITIONING"],
-    [7, 4, 0, 6, 0, "IMAGE"],
-    [8, 4, 0, 12, 0, "IMAGE"],
-    [9, 5, 0, 11, 2, "IMAGE"],
-    [10, 6, 0, 9, 3, "IMAGE"],
-    [11, 7, 0, 8, 0, "CONTROL_NET"],
-    [12, 8, 0, 9, 2, "CONTROL_NET"],
-    [13, 9, 0, 13, 1, "CONDITIONING"],
-    [14, 9, 1, 13, 2, "CONDITIONING"],
-    [15, 12, 0, 13, 3, "LATENT"],
-    [16, 13, 0, 14, 0, "LATENT"],
-    [17, 14, 0, 17, 0, "IMAGE"],
-    [20, 10, 0, 11, 0, "MODEL"],
-    [21, 10, 1, 11, 1, "IPADAPTER"],
-    [22, 11, 0, 13, 0, "MODEL"],
-    [22, 11, 0, 17, 1, "MODEL"],
-    [30, 15, 0, 17, 7, "BBOX_DETECTOR"],
-    [31, 16, 0, 17, 8, "SAM_MODEL"],
-    [40, 17, 0, 18, 0, "IMAGE"],
-    [50, 1, 2, 17, 3, "VAE"]
+    [1,  1,  0, 11, 0, "MODEL"],
+    [2,  1,  1,  2, 0, "CLIP"],
+    [3,  1,  1,  3, 0, "CLIP"],
+    [4,  1,  2, 15, 1, "VAE"],
+    [5,  2,  0,  9, 0, "CONDITIONING"],
+    [6,  3,  0,  9, 1, "CONDITIONING"],
+    [7,  4,  0,  6, 0, "IMAGE"],
+    [8,  6,  0,  9, 3, "IMAGE"],
+    [9,  7,  0,  8, 0, "CONTROL_NET"],
+    [10, 8,  0,  9, 2, "CONTROL_NET"],
+    [11, 9,  0, 14, 1, "CONDITIONING"],
+    [12, 9,  1, 14, 2, "CONDITIONING"],
+    [13, 9,  0, 18, 4, "CONDITIONING"],
+    [14, 9,  1, 18, 5, "CONDITIONING"],
+    [15, 13, 0, 14, 3, "LATENT"],
+    [16, 14, 0, 15, 0, "LATENT"],
+    [17, 15, 0, 18, 0, "IMAGE"],
+    [18, 11, 0, 12, 0, "MODEL"],
+    [19, 11, 1, 12, 1, "IPADAPTER"],
+    [20, 5,  0, 12, 2, "IMAGE"],
+    [21, 10, 0, 12, 6, "INSIGHTFACE"],
+    [22, 12, 0, 14, 0, "MODEL"],
+    [23, 12, 0, 18, 1, "MODEL"],
+    [24, 16, 0, 18, 6, "BBOX_DETECTOR"],
+    [25, 17, 0, 18, 7, "SAM_MODEL"],
+    [26, 18, 0, 19, 0, "IMAGE"],
+    [27, 1,  1, 18, 2, "CLIP"],
+    [28, 1,  2, 18, 3, "VAE"]
   ],
   "groups": [
-    {"title": "1. BASE SCENE (arrastrar foto del laboratorio)", "bounding": [-960, 150, 430, 420], "color": "#3d85c8"},
-    {"title": "2. FACE REFERENCE (arrastrar foto de la persona nueva)", "bounding": [-960, 500, 430, 420], "color": "#6aa84f"},
-    {"title": "3. ControlNet Depth (estructura de la escena)", "bounding": [-600, 150, 450, 320], "color": "#e69138"},
-    {"title": "4. IPAdapter FaceID Plus V2 (identidad facial)", "bounding": [-960, 860, 750, 300], "color": "#cc0000"},
-    {"title": "5. Generación KSampler", "bounding": [100, 350, 390, 400], "color": "#674ea7"},
-    {"title": "6. FaceDetailer (pulido final)", "bounding": [480, 250, 740, 700], "color": "#741b47"}
+    {
+      "title": "1. ESCENA BASE — arrastra aquí la foto del laboratorio",
+      "bounding": [-960, 150, 430, 420],
+      "color": "#3d85c8"
+    },
+    {
+      "title": "2. PERSONA DE REFERENCIA — arrastra aquí la foto del rostro nuevo",
+      "bounding": [-960, 500, 430, 420],
+      "color": "#6aa84f"
+    },
+    {
+      "title": "3. ControlNet Depth — preserva composición (automático)",
+      "bounding": [-600, 150, 460, 330],
+      "color": "#e69138"
+    },
+    {
+      "title": "4. IPAdapter FaceID — inyecta identidad facial",
+      "bounding": [-960, 860, 950, 330],
+      "color": "#cc0000"
+    },
+    {
+      "title": "5. PROMPT EDITABLE + GENERACIÓN — edita aquí la acción",
+      "bounding": [-450, 290, 730, 490],
+      "color": "#674ea7"
+    },
+    {
+      "title": "6. FaceDetailer + Guardado — pulido final",
+      "bounding": [570, 150, 1160, 600],
+      "color": "#741b47"
+    }
   ],
   "config": {},
-  "extra": {"ds": {"scale": 0.7, "offset": [300, -50]}},
+  "extra": {"ds": {"scale": 0.65, "offset": [300, -50]}},
   "version": 0.4
 }
