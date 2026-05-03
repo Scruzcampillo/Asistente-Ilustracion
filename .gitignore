@@ -13,3 +13,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+03_salidas/guia_instalacion_face_swap_workflow.md
+03_salidas/workflow_face_composition_swap.json
