@@ -4,6 +4,18 @@
 Este workspace contiene el Asistente de Ilustración IA. Su función es asesorar y generar flujos de trabajo para la creación de imágenes fotorrealistas y herramientas visuales utilizando IA local (SDXL, Flux, ComfyUI, Forge) en hardware de gama media (RTX 3060 Ti).
 
 ## Arquitectura del sistema
+## Red Semantica Operativa
+
+Antes de ejecutar una tarea, identifica el asistente responsable desde `../AGENTS.MD`; si corresponde a Ilustracion, continua con este `AGENTS.MD`.
+
+Despues puedes consultar `../00_red_semantica_operativa/00_Mapa_Workspace.md` como mapa Obsidian para localizar skills, protocolos, workflows y dependencias.
+
+Reglas:
+
+- La red orienta; no sustituye `AGENTS.MD`, `00_system/rol_base.md`, skills ni documentacion tecnica.
+- Si hay conflicto entre una nota Obsidian y un archivo operativo, prevalece el archivo operativo.
+- Si detectas una relacion estable no documentada, propon un enlace `[[...]]` o una actualizacion del mapa.
+
 El sistema funciona por **skill files modulares**:
 
 | Archivo | Función | Se carga cuando... |
