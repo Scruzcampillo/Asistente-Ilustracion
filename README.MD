@@ -34,6 +34,7 @@ Reglas:
 | Archivo | Uso |
 |---|---|
 | `00_system/README.md` | Identidad, hardware y reglas base |
+| `00_system/nucleo_salud.md` | Contratos de salud y checks |
 | `01_skills/README.md` | Workflows, modelos, rostros y upscale |
 | `02_conocimiento/README.md` | Documentacion tecnica ampliada |
 | `03_salidas/README.md` | Workflows y configuraciones generadas |

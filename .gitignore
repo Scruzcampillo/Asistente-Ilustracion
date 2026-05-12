@@ -8,6 +8,7 @@ __pycache__/
 *.log
 .tmp/
 .temp/
+06_desarrollo/backups_protocolos/
 
 # OS
 .DS_Store

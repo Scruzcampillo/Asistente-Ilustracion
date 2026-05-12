@@ -1,8 +1,8 @@
 {
-  "id": "test-img2img-faceid-depth-conservative",
+  "id": "test-img2img-faceid-depth-no-facedetailer",
   "revision": 0,
   "last_node_id": 27,
-  "last_link_id": 42,
+  "last_link_id": 43,
   "nodes": [
     {
       "id": 1,
@@ -32,8 +32,7 @@
           "type": "CLIP",
           "links": [
             2,
-            3,
-            31
+            3
           ]
         },
         {
@@ -41,8 +40,7 @@
           "type": "VAE",
           "links": [
             4,
-            35,
-            42
+            43
           ]
         }
       ],
@@ -115,7 +113,7 @@
         }
       },
       "widgets_values": [
-        "photorealistic editorial photograph, same source scene, same camera angle, same framing, same lighting, same environment, same body pose and action as the person in the source image, full scene visible, realistic adult person, reference person identity, natural skin texture, coherent anatomy, magazine photography, sharp focus, no text, no watermark"
+        "photorealistic editorial photograph, same source scene, same camera angle, same framing, same lighting, same environment, same body pose and action as the person in the source image, full scene visible, realistic adult person, clear natural face, facial resemblance to the reference person, natural skin texture, coherent anatomy, magazine photography, sharp focus, no text, no watermark"
       ]
     },
     {
@@ -166,7 +164,7 @@
         }
       },
       "widgets_values": [
-        "cartoon, anime, illustration, drawing, caricature, doll face, giant eyes, distorted proportions, close-up face, cropped face, old face, elderly, aged, wrinkles, different person, waxy skin, low quality, blurry, bad anatomy, extra limbs, missing fingers, duplicate person, two people, text, watermark"
+        "cartoon, anime, illustration, drawing, caricature, mask, face paint, clown makeup, doll face, giant eyes, distorted proportions, close-up face, cropped face, old face, elderly, aged, wrinkles, different person, weak resemblance, waxy skin, low quality, blurry, bad anatomy, extra limbs, missing fingers, duplicate person, two people, text, watermark"
       ]
     },
     {
@@ -395,9 +393,9 @@
         }
       },
       "widgets_values": [
-        0.85,
+        0.82,
         0,
-        1.0
+        0.98
       ]
     },
     {
@@ -489,7 +487,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 42
+          "link": 43
         }
       ],
       "outputs": [
@@ -589,7 +587,7 @@
         6.5,
         "dpmpp_2m_sde",
         "karras",
-        0.42
+        0.44
       ]
     },
     {
@@ -623,7 +621,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            28
+            42
           ]
         }
       ],
@@ -665,9 +663,7 @@
         {
           "name": "BBOX_DETECTOR",
           "type": "BBOX_DETECTOR",
-          "links": [
-            32
-          ]
+          "links": []
         },
         {
           "name": "SEGM_DETECTOR",
@@ -715,9 +711,7 @@
         {
           "name": "SAM_MODEL",
           "type": "SAM_MODEL",
-          "links": [
-            33
-          ]
+          "links": []
         }
       ],
       "properties": {
@@ -755,27 +749,27 @@
       ],
       "flags": {},
       "order": 22,
-      "mode": 0,
+      "mode": 2,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 28
+          "link": null
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 30
+          "link": null
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 31
+          "link": null
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 35
+          "link": null
         },
         {
           "name": "positive",
@@ -790,13 +784,13 @@
         {
           "name": "bbox_detector",
           "type": "BBOX_DETECTOR",
-          "link": 32
+          "link": null
         },
         {
           "name": "sam_model_opt",
           "shape": 7,
           "type": "SAM_MODEL",
-          "link": 33
+          "link": null
         },
         {
           "name": "segm_detector_opt",
@@ -821,9 +815,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "links": [
-            34
-          ]
+          "links": []
         },
         {
           "name": "cropped_refined",
@@ -881,7 +873,7 @@
         7,
         "dpmpp_2m_sde",
         "karras",
-        0.18,
+        0.16,
         5,
         true,
         false,
@@ -921,7 +913,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 34
+          "link": 42
         }
       ],
       "outputs": [],
@@ -943,7 +935,7 @@
         }
       },
       "widgets_values": [
-        "ComfyUI_recompose_img2img_faceid_conservative"
+        "ComfyUI_recompose_img2img_faceid_no_facedetailer"
       ]
     },
     {
@@ -1252,8 +1244,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            29,
-            30
+            29
           ]
         },
         {
@@ -1280,12 +1271,12 @@
         }
       },
       "widgets_values": [
-        0.6,
         0.7,
+        0.85,
         "linear",
         "average",
         0,
-        0.9,
+        0.95,
         "V only"
       ]
     }
@@ -1420,68 +1411,12 @@
       "LATENT"
     ],
     [
-      28,
-      20,
-      0,
-      23,
-      0,
-      "IMAGE"
-    ],
-    [
       29,
       26,
       0,
       19,
       0,
       "MODEL"
-    ],
-    [
-      30,
-      26,
-      0,
-      23,
-      1,
-      "MODEL"
-    ],
-    [
-      31,
-      1,
-      1,
-      23,
-      2,
-      "CLIP"
-    ],
-    [
-      32,
-      21,
-      0,
-      23,
-      6,
-      "BBOX_DETECTOR"
-    ],
-    [
-      33,
-      22,
-      0,
-      23,
-      7,
-      "SAM_MODEL"
-    ],
-    [
-      34,
-      23,
-      0,
-      24,
-      0,
-      "IMAGE"
-    ],
-    [
-      35,
-      1,
-      2,
-      23,
-      3,
-      "VAE"
     ],
     [
       37,
@@ -1525,6 +1460,14 @@
     ],
     [
       42,
+      20,
+      0,
+      24,
+      0,
+      "IMAGE"
+    ],
+    [
+      43,
       1,
       2,
       18,
@@ -1574,7 +1517,7 @@
     },
     {
       "id": 4,
-      "title": "4. IPAdapter FaceID - identidad de referencia",
+      "title": "4. IPAdapter FaceID - identidad equilibrada",
       "bounding": [
         -1260,
         1000,
@@ -1600,7 +1543,7 @@
     },
     {
       "id": 6,
-      "title": "6. FaceDetailer suave + Guardado",
+      "title": "6. Diagnostico - FaceDetailer desactivado",
       "bounding": [
         510,
         150,

@@ -1,46 +1,106 @@
-# SKILL — Workflows y Modelos de IA (3060 Ti)
-> Guía operativa para la generación de imágenes y herramientas de trabajo.
+---
+Creada: 2026-05-04
+Actualizada: 2026-05-12T12:29
+---
+# skill_ia_ilustracion.md - Workflows y modelos de IA local
 
-## 1. Modelos Recomendados (8 GB VRAM)
+## Cuando cargar este skill
 
-### Stable Diffusion XL (SDXL) — El estándar de producción
-- **Juggernaut XL v9:** Generalista fotorrealista.
-- **RealVisXL V5.0:** Retrato ultrarrealista.
-- **epiCRealism XL:** Estética editorial/beauty.
-- **CyberRealistic XL:** Composiciones cinematográficas.
+Cargar cuando Santiago pida asesoramiento, configuracion o generacion de workflows visuales con IA local: SDXL, Flux, ComfyUI, Forge, Pinokio, consistencia de rostro, ControlNet, FaceDetailer o upscaling editorial.
 
-### Flux.1 — Calidad Superior (Solo cuantizado)
-- **Flux.1 dev GGUF (Q4_0 / Q5_0):** ~7 GB. Requiere offload de T5 a RAM. Usar en ComfyUI con `ComfyUI-GGUF`.
-- **Flux.1 dev NF4 v2:** ~6-7 GB. Usar en Forge para mayor velocidad.
-- **Flux.1 schnell GGUF Q4:** 4 pasos. Ideal para iteración rápida.
+No cargar para tareas editoriales de texto ni para modificar repos externos de modelos o herramientas. Si la tarea implica codigo o scripts propios, coordinar con Desarrollo.
 
-## 2. Gestión de Rostros e Identidad
+## Proposito
 
-| Herramienta | Cuándo usar | Requisito |
+Definir workflows ejecutables para produccion visual IA en hardware de gama media, priorizando calidad fotorrealista sin romper el limite de 8 GB de VRAM.
+
+## Fuentes y dependencias
+
+- `AGENTS.MD`: modalidades y regla de oro de 8 GB.
+- `00_system/rol_base.md`: identidad, hardware y stack.
+- `00_system/nucleo_salud.md`: contratos de salud y frontera externa.
+- `02_conocimiento/Documentacion_IA_Ilustracion.md`: documentacion tecnica ampliada.
+- Herramientas objetivo: ComfyUI, Forge y Pinokio.
+
+## Flujo operativo
+
+1. Identificar objetivo visual: retrato, identidad recurrente, composicion, upscale, batch o diagnostico.
+2. Verificar restricciones de hardware: RTX 3060 Ti, 8 GB VRAM, 16 GB RAM.
+3. Elegir base:
+   - SDXL para flujo seguro y calidad editorial;
+   - Flux solo cuantizado o con offload claro.
+4. Definir control de identidad, composicion y mejora facial si aplica.
+5. Definir upscaling por tiles si se necesita mas resolucion.
+6. Advertir riesgos de OOM o lentitud cuando el flujo sea pesado.
+7. Entregar pasos, parametros o JSON de workflow segun la modalidad.
+
+## Reglas criticas
+
+- Nunca proponer flujos que ignoren el limite de 8 GB de VRAM.
+- No recomendar modelos, nodos o flags inexistentes sin verificar.
+- No modificar repos externos de modelos o herramientas; instalar/documentar o crear fork solo si Santiago lo pide.
+- Priorizar ComfyUI para pipelines complejos.
+- Priorizar Forge para velocidad en Flux.
+- En fotorrealismo, separar generacion, identidad, control de composicion y upscale.
+
+## Modelos recomendados
+
+### SDXL
+
+- Juggernaut XL v9: generalista fotorrealista.
+- RealVisXL V5.0: retrato ultrarrealista.
+- epiCRealism XL: estetica editorial/beauty.
+- CyberRealistic XL: composiciones cinematograficas.
+
+### Flux cuantizado
+
+- Flux.1 dev GGUF Q4/Q5: requiere offload de T5 a RAM y ComfyUI-GGUF.
+- Flux.1 dev NF4 v2: usar en Forge para mejor velocidad.
+- Flux.1 schnell GGUF Q4: iteracion rapida.
+
+## Rostros e identidad
+
+| Herramienta | Uso | Requisito |
 |---|---|---|
-| **IPAdapter FaceID Plus V2** | Personaje recurrente en SDXL | Modelos FaceID + LoRA FaceID |
-| **PuLID-Flux** | Consistencia de personaje en Flux | ComfyUI-PuLID-Flux |
-| **InstantID** | Misma pose y rostro (clonado) | Solo SDXL, pesado en VRAM |
-| **ReActor** | Face-swap rápido (post-gen) | Modelo Inswapper-128 |
-| **FaceDetailer** | **Obligatorio** para calidad final | Impact Pack (YOLOv8m + SAM) |
+| IPAdapter FaceID Plus V2 | Personaje recurrente en SDXL | Modelos FaceID + LoRA FaceID |
+| PuLID-Flux | Consistencia de personaje en Flux | ComfyUI-PuLID-Flux |
+| InstantID | Misma pose y rostro | Solo SDXL, pesado en VRAM |
+| ReActor | Face-swap rapido post-gen | Modelo Inswapper-128 |
+| FaceDetailer | Calidad final | Impact Pack |
 
-## 3. Control de Composición (ControlNet)
-- **xinsir Union ProMax:** El modelo "todo en uno" para SDXL. Cubre Canny, OpenPose, Depth, etc.
-- **Strength:** Usar entre 0.5 y 0.85.
-- **Scheduling:** Empezar en 0.0 y terminar en 0.8 para permitir refinado final.
+## Control de composicion
 
-## 4. Upscaling Editorial
-- **Ultimate SD Upscale:** Técnica de tiles para superar el límite de VRAM.
-- **Modelos Pixel-space:** 4x-UltraSharp (favorito), 4x_NMKD-Siax_200k (piel).
-- **Parámetros Denoise:** 0.2 a 0.35 para añadir detalle sin alucinaciones.
+- xinsir Union ProMax para SDXL: Canny, OpenPose, Depth y otros controles.
+- Strength recomendado: 0.5 a 0.85.
+- Scheduling recomendado: iniciar 0.0 y terminar 0.8 para permitir refinado final.
 
-## 5. Configuración de Software (Pinokio/Windows)
-- **ComfyUI:** Usar `--lowvram` para Flux GGUF. Instalar `ComfyUI-Manager` como primer paso.
-- **Forge:** Mejor gestor de memoria para Flux NF4. Activar `--cuda-stream` para 3060 Ti.
-- **VAEs:** Usar `sdxl_vae_fp16_fix` para evitar NaNs en SDXL.
+## Upscaling editorial
 
-## 6. Pipeline Óptimo Sugerido
-1. Generar base 1024x1024 con SDXL (Juggernaut/RealVisXL).
-2. Aplicar IPAdapter FaceID para identidad.
-3. Pasar por FaceDetailer (Denoise 0.45).
-4. Ultimate SD Upscale 2x con 4x-UltraSharp (Denoise 0.25).
+- Ultimate SD Upscale con tiles.
+- Modelos favoritos: 4x-UltraSharp, 4x_NMKD-Siax_200k para piel.
+- Denoise: 0.2 a 0.35 para detalle sin alucinacion.
+
+## Pipeline sugerido
+
+1. Generar base 1024x1024 con SDXL.
+2. Aplicar IPAdapter FaceID si hay identidad recurrente.
+3. Pasar por FaceDetailer.
+4. Aplicar Ultimate SD Upscale 2x con denoise moderado.
+
+## Validacion y cierre
+
+Checklist:
+
+- [ ] respeta 8 GB VRAM;
+- [ ] indica modelo base;
+- [ ] indica herramienta recomendada;
+- [ ] advierte OOM si aplica;
+- [ ] no inventa nodos, modelos ni rutas locales;
+- [ ] separa generacion, identidad, composicion y upscale.
+
+Si se modifica este skill:
+
+```powershell
+py "05_scripts\health_check_ilustracion.py"
+```
+

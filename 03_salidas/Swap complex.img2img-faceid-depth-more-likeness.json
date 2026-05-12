@@ -1,5 +1,5 @@
 {
-  "id": "test-img2img-faceid-depth-conservative",
+  "id": "test-img2img-faceid-depth-more-likeness",
   "revision": 0,
   "last_node_id": 27,
   "last_link_id": 42,
@@ -115,7 +115,7 @@
         }
       },
       "widgets_values": [
-        "photorealistic editorial photograph, same source scene, same camera angle, same framing, same lighting, same environment, same body pose and action as the person in the source image, full scene visible, realistic adult person, reference person identity, natural skin texture, coherent anatomy, magazine photography, sharp focus, no text, no watermark"
+        "photorealistic editorial photograph, same source scene, same camera angle, same framing, same lighting, same environment, same body pose and action as the person in the source image, full scene visible, strong facial resemblance to the reference person, same facial identity as reference, realistic adult face, natural skin texture, coherent anatomy, magazine photography, sharp focus, no text, no watermark"
       ]
     },
     {
@@ -166,7 +166,7 @@
         }
       },
       "widgets_values": [
-        "cartoon, anime, illustration, drawing, caricature, doll face, giant eyes, distorted proportions, close-up face, cropped face, old face, elderly, aged, wrinkles, different person, waxy skin, low quality, blurry, bad anatomy, extra limbs, missing fingers, duplicate person, two people, text, watermark"
+        "cartoon, anime, illustration, drawing, caricature, doll face, giant eyes, distorted proportions, close-up face, cropped face, old face, elderly, aged, wrinkles, different person, weak resemblance, waxy skin, low quality, blurry, bad anatomy, extra limbs, missing fingers, duplicate person, two people, text, watermark"
       ]
     },
     {
@@ -395,9 +395,9 @@
         }
       },
       "widgets_values": [
-        0.85,
+        0.78,
         0,
-        1.0
+        0.95
       ]
     },
     {
@@ -585,11 +585,11 @@
       "widgets_values": [
         42,
         "fixed",
-        28,
+        30,
         6.5,
         "dpmpp_2m_sde",
         "karras",
-        0.42
+        0.48
       ]
     },
     {
@@ -877,11 +877,11 @@
         1024,
         42,
         "fixed",
-        20,
+        24,
         7,
         "dpmpp_2m_sde",
         "karras",
-        0.18,
+        0.24,
         5,
         true,
         false,
@@ -943,7 +943,7 @@
         }
       },
       "widgets_values": [
-        "ComfyUI_recompose_img2img_faceid_conservative"
+        "ComfyUI_recompose_img2img_faceid_more_likeness"
       ]
     },
     {
@@ -1280,12 +1280,12 @@
         }
       },
       "widgets_values": [
-        0.6,
-        0.7,
+        0.8,
+        1.0,
         "linear",
         "average",
         0,
-        0.9,
+        1.0,
         "V only"
       ]
     }
@@ -1574,7 +1574,7 @@
     },
     {
       "id": 4,
-      "title": "4. IPAdapter FaceID - identidad de referencia",
+      "title": "4. IPAdapter FaceID - mas parecido facial",
       "bounding": [
         -1260,
         1000,
@@ -1587,7 +1587,7 @@
     },
     {
       "id": 5,
-      "title": "5. PROMPT + IMG2IMG - rehace personaje en escena base",
+      "title": "5. IMG2IMG - escena base + identidad reforzada",
       "bounding": [
         -660,
         -300,

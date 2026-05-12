@@ -15,12 +15,14 @@ Reglas:
 - La red orienta; no sustituye `AGENTS.MD`, `00_system/rol_base.md`, skills ni documentacion tecnica.
 - Si hay conflicto entre una nota Obsidian y un archivo operativo, prevalece el archivo operativo.
 - Si detectas una relacion estable no documentada, propon un enlace `[[...]]` o una actualizacion del mapa.
+- Si la tarea modifica protocolos, scripts, skills o flujos, cargar `00_system/nucleo_salud.md`, crear backup si procede y ejecutar `05_scripts/health_check_ilustracion.py` antes de cerrar.
 
 El sistema funciona por **skill files modulares**:
 
 | Archivo | Función | Se carga cuando... |
 |---|---|---|
 | `00_system/rol_base.md` | Identidad, hardware, reglas críticas | **Siempre** |
+| `00_system/nucleo_salud.md` | Contratos de salud, frontera externa, backups y checks | Se modifican protocolos, scripts, skills o flujos |
 | `01_skills/skill_ia_ilustracion.md` | Modelos, workflows, rostros, upscale | Tareas de generación o setup |
 | `02_conocimiento/Documentacion_IA_Ilustracion.md` | Documentación técnica completa | Consultas profundas sobre compatibilidad |
 
@@ -51,3 +53,9 @@ Nunca propongas flujos que ignoren el límite de VRAM. Si una tarea es pesada (F
 2. **Priorizar ComfyUI:** Para pipelines complejos.
 3. **Priorizar Forge:** Para velocidad en Flux.
 4. **Fotorrealismo:** Enfoque principal del asistente.
+
+Check obligatorio tras modificar protocolos, scripts, skills o flujos:
+
+```powershell
+py "05_scripts\health_check_ilustracion.py"
+```

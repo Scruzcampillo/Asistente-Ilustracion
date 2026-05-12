@@ -1,6 +1,6 @@
 ---
 Creada: 2026-05-08T13:50
-Actualizada: 2026-05-08T13:53
+Actualizada: 2026-05-12T09:18
 ---
 # Skills - Asistente Ilustracion
 
@@ -23,3 +23,7 @@ Definir modelos, workflows y decisiones tecnicas para produccion visual IA.
 ## Regla
 
 La calidad visual no justifica romper el limite del equipo. Diseñar flujos que puedan ejecutarse.
+
+## Mantenimiento de skills
+
+La creacion, mejora o actualizacion de estos skills se gobierna desde `../../Asistente de Desarrollo/01_skills/skill_creacion_skills.md`. Antes de cambiar workflows visuales, entrar por Desarrollo y validar que las recomendaciones siguen siendo ejecutables en el equipo disponible.
