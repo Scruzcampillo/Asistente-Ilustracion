@@ -1,8 +1,36 @@
 ---
 Creada: 2026-05-04
-Actualizada: 2026-05-12T12:29
+Actualizada: 2026-05-13T11:14
+tipo: skill
+asistente: "[[Asistente Ilustracion]]"
+estado: activo
+convencion: hibrida
+tags:
+  - skill
+  - ilustracion
+  - ia
+  - comfyui
+  - flux
+  - sdxl
+relaciones:
+  - "[[Asistente Ilustracion]]"
+  - "[[Asistente de Desarrollo]]"
+  - "[[skill_codigo]]"
+tipo_tarea:
+  - direccion_visual
+  - investigacion_general
+agentes_recomendados:
+  - ChatGPT
+  - Gemini (generalidades)
+criterio_agente: ChatGPT estructura prompts y restricciones; Gemini puede ampliar referencias visuales generales.
 ---
 # skill_ia_ilustracion.md - Workflows y modelos de IA local
+
+## Mapa semantico
+
+- Nodo propietario: [[Asistente Ilustracion]]
+- Soporte tecnico: [[Asistente de Desarrollo]], [[skill_codigo]]
+- Documentacion relacionada: `02_conocimiento/Documentacion_IA_Ilustracion.md`
 
 ## Cuando cargar este skill
 
@@ -103,4 +131,3 @@ Si se modifica este skill:
 ```powershell
 py "05_scripts\health_check_ilustracion.py"
 ```
-

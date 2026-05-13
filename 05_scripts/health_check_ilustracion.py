@@ -69,6 +69,16 @@ def checks() -> list[tuple[bool, str]]:
     out.append(ok("health check referenced", "health_check_ilustracion.py" in health))
     out.append(ok("readme routes maintenance to Desarrollo", "skill_creacion_skills.md" in readme))
     out.append(ok("external repo boundary declared", "No modificar repos externos" in health))
+    out.append(ok("ia skill has semantic frontmatter", all(token in skill for token in [
+        "tipo: skill",
+        "asistente: \"[[Asistente Ilustracion]]\"",
+        "convencion: hibrida",
+        "relaciones:",
+        "tipo_tarea:",
+        "agentes_recomendados:",
+        "criterio_agente:",
+        "## Mapa semantico",
+    ])))
     return out
 
 
@@ -88,4 +98,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

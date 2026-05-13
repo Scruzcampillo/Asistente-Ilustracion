@@ -25,6 +25,8 @@ Mantener verificables los contratos de workflows de IA visual local.
 - FaceDetailer y upscaling por tiles son parte del flujo editorial recomendado.
 - No recomendar modelos, nodos o flags inexistentes sin verificar.
 - El mantenimiento de skills se rige por Desarrollo y `skill_creacion_skills.md`.
+- Todo cambio de skills debe aplicar concision, activacion clara, progressive disclosure, referencias a un nivel, scripts reutilizables cuando proceda y validacion realista.
+- Todo cambio de protocolos, scripts, skills o flujos debe registrarse en `../00_red_semantica_operativa/02_Historico_Desarrollos.md`.
 - No modificar repos externos de modelos o herramientas; solo documentar, instalar o crear fork propio si Santiago lo pide.
 
 ## Backup
@@ -40,4 +42,3 @@ Despues:
 ```powershell
 py "05_scripts\health_check_ilustracion.py"
 ```
-
