@@ -8,6 +8,7 @@ __pycache__/
 *.log
 .tmp/
 .temp/
+03_salidas/.tiempo_editorial.json
 06_desarrollo/backups_protocolos/
 
 # OS
@@ -17,3 +18,4 @@ desktop.ini
 03_salidas/guia_instalacion_face_swap_workflow.md
 03_salidas/workflow_face_composition_swap.json
 03_salidas/workflow_face_composition_swap.json
+03_salidas/Swap complex.A-test-pose-depth-faceid.json
