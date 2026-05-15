@@ -1,0 +1,837 @@
+{
+  "id": "face-refine-identity-pass",
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 16,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "title": "01 IMAGEN A CORREGIR - salida buena de 13/13b",
+      "pos": [
+        -1500.0,
+        -100.0
+      ],
+      "size": [
+        330.0,
+        315.0
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "note": "01 IMAGEN A CORREGIR - salida buena de 13/13b"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "title": "02 ROSTRO REFERENCIA - retrato claro/carnet",
+      "pos": [
+        -1500.0,
+        330.0
+      ],
+      "size": [
+        330.0,
+        315.0
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "note": "02 ROSTRO REFERENCIA - retrato claro/carnet"
+      },
+      "widgets_values": [
+        "Editor para Reels (1).png",
+        "image"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "CheckpointLoaderSimple",
+      "title": "03 Checkpoint SDXL RealVisXL",
+      "pos": [
+        -1060.0,
+        -360.0
+      ],
+      "size": [
+        360.0,
+        90.0
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            4,
+            5,
+            10
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            6
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple",
+        "note": "03 Checkpoint SDXL RealVisXL"
+      },
+      "widgets_values": [
+        "RealVisXL_V5.0_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "title": "04 Prompt positivo SOLO rostro",
+      "pos": [
+        -1060.0,
+        -220.0
+      ],
+      "size": [
+        520.0,
+        170.0
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode",
+        "note": "04 Prompt positivo SOLO rostro"
+      },
+      "widgets_values": [
+        "photorealistic close facial refinement, same person as the face reference, strong facial resemblance, natural adult human face, realistic skin texture, visible pores, normal eyes, natural mouth, natural nose, coherent face anatomy, preserve the original image lighting, preserve hairline and head angle, editorial photography"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "title": "05 Prompt negativo anti cartoon/doll",
+      "pos": [
+        -1060.0,
+        0.0
+      ],
+      "size": [
+        520.0,
+        170.0
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode",
+        "note": "05 Prompt negativo anti cartoon/doll"
+      },
+      "widgets_values": [
+        "cartoon, anime, illustration, drawing, 3d render, CGI, airbrushed, beauty filter, smooth plastic skin, porcelain skin, doll face, toy face, caricature, giant eyes, fake eyes, painted face, face paint, mask, waxy skin, overprocessed skin, distorted face, melted face, different person, weak resemblance, blurry, low quality"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "IPAdapterUnifiedLoaderFaceID",
+      "title": "06 Loader FaceID Plus V2",
+      "pos": [
+        -1060.0,
+        280.0
+      ],
+      "size": [
+        360.0,
+        110.0
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "IPADAPTER",
+          "type": "IPADAPTER",
+          "links": [
+            11
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterUnifiedLoaderFaceID",
+        "note": "06 Loader FaceID Plus V2"
+      },
+      "widgets_values": [
+        "FACEID PLUS V2",
+        0.6,
+        "CUDA"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "IPAdapterInsightFaceLoader",
+      "title": "07 InsightFace CUDA",
+      "pos": [
+        -1060.0,
+        450.0
+      ],
+      "size": [
+        300.0,
+        80.0
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INSIGHTFACE",
+          "type": "INSIGHTFACE",
+          "links": [
+            12
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterInsightFaceLoader",
+        "note": "07 InsightFace CUDA"
+      },
+      "widgets_values": [
+        "CUDA"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "IPAdapterFaceID",
+      "title": "08 FaceID fuerte pero corto - solo para refinar cara",
+      "pos": [
+        -560.0,
+        300.0
+      ],
+      "size": [
+        360.0,
+        260.0
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 9
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 11
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "name": "image_negative",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "attn_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": null
+        },
+        {
+          "name": "insightface",
+          "type": "INSIGHTFACE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "face_image",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterFaceID",
+        "note": "08 FaceID fuerte pero corto - solo para refinar cara"
+      },
+      "widgets_values": [
+        0.92,
+        1.05,
+        "linear",
+        "average",
+        0.0,
+        0.68,
+        "V only"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "UltralyticsDetectorProvider",
+      "title": "09 Detector cara YOLO",
+      "pos": [
+        -520.0,
+        -120.0
+      ],
+      "size": [
+        320.0,
+        80.0
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BBOX_DETECTOR",
+          "type": "BBOX_DETECTOR",
+          "links": [
+            14
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "SEGM_DETECTOR",
+          "type": "SEGM_DETECTOR",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UltralyticsDetectorProvider",
+        "note": "09 Detector cara YOLO"
+      },
+      "widgets_values": [
+        "bbox/face_yolov8m.pt"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "SAMLoader",
+      "title": "10 SAM para mascara facial",
+      "pos": [
+        -520.0,
+        0.0
+      ],
+      "size": [
+        320.0,
+        100.0
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": [
+            15
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SAMLoader",
+        "note": "10 SAM para mascara facial"
+      },
+      "widgets_values": [
+        "sam_vit_b_01ec64.pth",
+        "Prefer GPU"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "FaceDetailer",
+      "title": "11 FaceDetailer ACTIVO - refina solo cara",
+      "pos": [
+        0.0,
+        -160.0
+      ],
+      "size": [
+        430.0,
+        720.0
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 13
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 10
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 6
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "bbox_detector",
+          "type": "BBOX_DETECTOR",
+          "link": 14
+        },
+        {
+          "name": "sam_model_opt",
+          "type": "SAM_MODEL",
+          "link": 15
+        },
+        {
+          "name": "segm_detector_opt",
+          "type": "SEGM_DETECTOR",
+          "link": null
+        },
+        {
+          "name": "detailer_hook",
+          "type": "DETAILER_HOOK",
+          "link": null
+        },
+        {
+          "name": "scheduler_func_opt",
+          "type": "SCHEDULER_FUNC",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            16
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "cropped_refined",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "cropped_enhanced_alpha",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 2
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 3
+        },
+        {
+          "name": "detailer_pipe",
+          "type": "DETAILER_PIPE",
+          "links": [],
+          "slot_index": 4
+        },
+        {
+          "name": "cnet_images",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 5
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FaceDetailer",
+        "note": "11 FaceDetailer ACTIVO - refina solo cara"
+      },
+      "widgets_values": [
+        768,
+        true,
+        1024,
+        42,
+        "fixed",
+        26,
+        6.0,
+        "dpmpp_2m_sde",
+        "karras",
+        0.38,
+        5,
+        true,
+        false,
+        0.45,
+        12,
+        3.5,
+        "center-1",
+        0,
+        0.93,
+        0,
+        0.7,
+        "False",
+        10,
+        "",
+        1,
+        false,
+        20,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 12,
+      "type": "SaveImage",
+      "title": "12 GUARDAR - rostro refinado",
+      "pos": [
+        520.0,
+        -120.0
+      ],
+      "size": [
+        330.0,
+        90.0
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 16
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage",
+        "note": "12 GUARDAR - rostro refinado"
+      },
+      "widgets_values": [
+        "ComfyUI_15_face_refine_identity_pass"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      2,
+      0,
+      8,
+      2,
+      "IMAGE"
+    ],
+    [
+      3,
+      3,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      3,
+      1,
+      4,
+      0,
+      "CLIP"
+    ],
+    [
+      5,
+      3,
+      1,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      6,
+      3,
+      2,
+      11,
+      3,
+      "VAE"
+    ],
+    [
+      7,
+      4,
+      0,
+      11,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      5,
+      0,
+      11,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      6,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      10,
+      3,
+      1,
+      11,
+      2,
+      "CLIP"
+    ],
+    [
+      11,
+      6,
+      1,
+      8,
+      1,
+      "IPADAPTER"
+    ],
+    [
+      12,
+      7,
+      0,
+      8,
+      6,
+      "INSIGHTFACE"
+    ],
+    [
+      13,
+      8,
+      0,
+      11,
+      1,
+      "MODEL"
+    ],
+    [
+      14,
+      9,
+      0,
+      11,
+      6,
+      "BBOX_DETECTOR"
+    ],
+    [
+      15,
+      10,
+      0,
+      11,
+      7,
+      "SAM_MODEL"
+    ],
+    [
+      16,
+      11,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "01 Entradas: imagen generada + retrato de identidad",
+      "bounding": [
+        -1540,
+        -160,
+        430,
+        850
+      ],
+      "color": "#3d85c8",
+      "font_size": 22,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "02 Modelo y prompts de refinado facial",
+      "bounding": [
+        -1100,
+        -420,
+        620,
+        650
+      ],
+      "color": "#674ea7",
+      "font_size": 20,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "03 FaceID usa solo el retrato; influencia corta para evitar cartoon",
+      "bounding": [
+        -1100,
+        230,
+        940,
+        420
+      ],
+      "color": "#6aa84f",
+      "font_size": 20,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "04 Deteccion + FaceDetailer activo + guardado",
+      "bounding": [
+        -560,
+        -220,
+        1440,
+        820
+      ],
+      "color": "#741b47",
+      "font_size": 20,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.75,
+      "offset": [
+        1500,
+        520
+      ]
+    }
+  },
+  "version": 0.4
+}
